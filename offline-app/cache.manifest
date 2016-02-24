@@ -1,0 +1,8 @@
+CACHE:
+/js/logic.js
+/js/options.js
+/images/loading.png
+/css/main.css
+
+NETWORK:
+*

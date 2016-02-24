@@ -1,0 +1,1 @@
+IndexedDB, localStorage, Application Cache, XMLHttpRequest
