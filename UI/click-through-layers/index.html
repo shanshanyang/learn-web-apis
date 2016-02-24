@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0,initial-scale=1"></meta>
+        <title>demo</title>
+    </head>
+    <body>
+        <style>
+        
+            main {
+                width: 100vw;
+                height: 100vh;
+                background-color: gray;
+                z-index: 0;
+            }
+            
+            button {
+                width: 45%;
+                height: 300px;
+            }
+            
+            main button {
+                background-color: green;
+            }
+            
+            #overlay button {
+                background-color: blue;
+            }
+            
+            #overlay {
+                position: fixed;
+                z-index: 1;
+                opacity: 1;
+                width: 100vw;
+                height: 100vh;
+                transform: translateY(0) translateX(20px) translateZ(0);
+                transition: transform 0.3s linear 1s;
+                background-color: pink;
+            }
+            
+            .open#overlay {
+                transform: translateY(-400px) translateX(20px) translateZ(0);
+            }
+            
+            .clickthrough {
+                pointer-events: none;
+            }
+            
+            #clicklink {
+                width: 100%;
+                height: 200px;
+                display: block;
+                background: red;
+            }
+        </style>
+        
+        <!--HTML-->
+        <main>
+            <button id="layer0">Click to open overlay</button>
+            <button id="layer0-click-through-overlay">Open overlay with click through</button>
+            <a href="https://google.com" id="clicklink">LINK</a>
+        </main>
+        <section id="overlay">
+                <button id="layer1">Close Overlay</button>
+            </section>
+        
+        <script>
+        (function() {
+            var $overlay = document.querySelector("#overlay");
+            document.querySelector("#layer0").onclick = function() {
+                $overlay.classList.add('open');
+            }
+            document.querySelector("#layer0-click-through-overlay").onclick = function() {
+                $overlay.classList.add('clickthrough','open');
+            }
+            document.querySelector("#layer1").addEventListener("touchstart", function(e) {
+                alert("touchstart layer1");
+                $overlay.classList.remove("open");
+                
+                if ($overlay.classList.contains('clickthrough') )  $overlay.classList.remove("clickthrough"); 
+            });
+            document.querySelector("#clicklink").addEventListener("click", function(e) {
+                alert("clicked layer0 link");
+                // e.preventDefault();
+            });
+            document.querySelector("#clicklink").addEventListener("mouseup", function(e) {
+                alert("mouseup layer0 link");
+                // e.preventDefault();
+            });
+            document.querySelector("#clicklink").addEventListener("touchstart", function(e) {
+                alert("touchstart layer0 link");
+                // e.preventDefault();
+            });
+            document.querySelector("#clicklink").addEventListener("touchend", function(e) {
+                alert("touchended layer0 link");
+                // e.preventDefault();
+            });
+            document.querySelector("#clicklink").addEventListener("tap", function(e) {
+                alert("tapped layer0 link");
+                // e.preventDefault();
+            });
+        })();
+            
+        </script>
+    </body>
+</html>
